@@ -66,13 +66,15 @@ const config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: ({ permalink }) => {
-            if (!permalink) {
+          editUrl: ({ blogPath }) => {
+            if (!blogPath) {
               return "https://persona-modding-docs.netlify.app/admin/#/collections/blog";
             }
         
-            const parts = permalink.split("/");
-            const filename = parts.pop()?.replace(".mdx", "").replace(".md", "");
+            // Extract the filename without extension
+            const parts = blogPath.split("/");
+            // @ts-ignore
+            const filename = parts.pop().replace(".mdx", "").replace(".md", "");
         
             return `https://persona-modding-docs.netlify.app/admin/#/collections/blog/entries/${filename}`;
           },
