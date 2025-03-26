@@ -45,8 +45,18 @@ const config = {
           sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://persona-modding-docs.netlify.app/admin/#/collections/',
+          editUrl: ({ docPath }) => {
+            if (!docPath) {
+              return "https://persona-modding-docs.netlify.app/admin"; // Default to admin page
+            }
+        
+            const parts = docPath.split('/');
+            const folder = parts.length > 1 ? parts[0] : 'documentation'; // Default to "documentation" if no subfolder
+            // @ts-ignore
+            const filename = parts.pop().replace('.mdx', '').replace('.md', ''); // Ensure no file extension
+        
+            return `https://persona-modding-docs.netlify.app/admin/#/collections/${folder}/entries/${filename}`;
+          },
         },
         blog: {
           showReadingTime: true,
