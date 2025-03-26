@@ -25,7 +25,7 @@ const config = {
   organizationName: 'AnimatedSwine37', // Usually your GitHub org/user name.
   projectName: 'persona-modding-docs', // Usually your repo name.
 
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
@@ -66,16 +66,15 @@ const config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: ({ blogPath }) => {
-            if (!blogPath) {
-              return "https://persona-modding-docs.netlify.app/admin"; // Default to admin page
+          editUrl: ({ permalink }) => {
+            if (!permalink) {
+              return "https://persona-modding-docs.netlify.app/admin/#/collections/blog";
             }
         
-            const parts = blogPath.split('/');
-            // @ts-ignore
-            const filename = parts.pop().replace('.mdx', '').replace('.md', ''); // Ensure no file extension
+            const parts = permalink.split("/");
+            const filename = parts.pop()?.replace(".mdx", "").replace(".md", "");
         
-            return `'https://persona-modding-docs.netlify.app/admin/#/collections/blog/entries/${filename}`;
+            return `https://persona-modding-docs.netlify.app/admin/#/collections/blog/entries/${filename}`;
           },
             
           // Useful options to enforce blogging best practices
