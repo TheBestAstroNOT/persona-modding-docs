@@ -37,7 +37,7 @@ collections:
     create: true
     nested:
       depth: 5  # Allows subfolders up to 5 levels deep
-    files:
+    folders:
       - name: audio
         label: "Audio"
         file: docs/audio
