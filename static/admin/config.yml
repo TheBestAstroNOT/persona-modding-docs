@@ -1,7 +1,9 @@
 backend:
   name: github
-  branch: main
   repo: TheBestAstroNOT/persona-modding-docs
+  branch: main
+  auth_scope: repo
+  open_authoring: true
 
 media_folder: "static/assets/images" # Media files will be stored here
 public_folder: "/assets/images" # Public URL for the media files

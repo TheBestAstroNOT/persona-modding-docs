@@ -46,7 +46,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/AnimatedSwine37/persona-modding-docs/edit/main/',
+            'https://persona-modding-docs.netlify.app/admin/#/collections/',
         },
         blog: {
           showReadingTime: true,
