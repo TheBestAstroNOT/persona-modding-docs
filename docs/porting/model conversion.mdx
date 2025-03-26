@@ -1,8 +1,8 @@
 ---
 title: P4G PC Models to Vita
 ---
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+
+
 
 This guide was written by [Dexxtrip](https://gamebanana.com/members/2225195) on Gamebanana / @bonq.com on Discord.
 
@@ -39,7 +39,7 @@ For this section, I'll walk you through all of the steps required for optimizing
 
 First, let's open the model in GMOView to check how the model looks before getting started.
 
-![](/assets/images/porting/p4gpc-vita/model-conversion/model%20preview.png)
+ ![](/assets/images/porting/p4gpc-vita/model-conversion/modelpreview.png)
 
 Let's break down each issue that we can notice just right here.
 
@@ -66,7 +66,7 @@ Open up a Hex Editor and drag the texture file inside.
 
 Read the first line, the first 3 letters on the right are the true extension.
 
-![](/assets/images/porting/p4gpc-vita/model-conversion/hxd%20file%20extension.png)
+  ![](/assets/images/porting/p4gpc-vita/model-conversion/hxdfileextension.png)
 
 In our case, the image is actually a .GIM, change the extension of the texture file.
 
@@ -80,7 +80,7 @@ Next, open up a command prompt next to GIMConv and pass a command like this
 ```
 gimconv (texture file) -o (texture file.png)
 ```
-![](/assets/images/porting/p4gpc-vita/model-conversion/command%20prompt%20texture.png)
+  ![](/assets/images/porting/p4gpc-vita/model-conversion/commandprompttexture.png)
 
 Very important that you set the picture as a PNG for easy editing in a photo editor of choice.
 
@@ -93,9 +93,9 @@ magick convert (path to png) -separate -swap 0,2 -combine (path to png)
 
 Your textures colors should be fixed, as shown here.
 
-![](/assets/images/porting/p4gpc-vita/model-conversion/old%20principality%20texture.png)
+  ![](/assets/images/porting/p4gpc-vita/model-conversion/oldprincipalitytexture.png)
 
-![](/assets/images/porting/p4gpc-vita/model-conversion/new%20principality%20texture.png)
+  ![](/assets/images/porting/p4gpc-vita/model-conversion/newprincipalitytexture.png)
 
 Now, we need to resize this image by half so that it fits within the Vita's constraints, pass another command like this.
 ```
@@ -117,15 +117,15 @@ Texture "
 ```
 You should find your texture listed like this:
 
-![](/assets/images/porting/p4gpc-vita/model-conversion/texture%20mention%20gms.png)
+  ![](/assets/images/porting/p4gpc-vita/model-conversion/texturementiongms.png)
 
 Now, we need to remove the junk data leftover from the original poster, remove everything before the texture file like this:
 
-![](/assets/images/porting/p4gpc-vita/model-conversion/removed%20junk%20data.png)
+  ![](/assets/images/porting/p4gpc-vita/model-conversion/removedjunkdata.png)
 
 Then, change the extension to .TM2
 
-![](/assets/images/porting/p4gpc-vita/model-conversion/changed%20extension.png)
+ ![](/assets/images/porting/p4gpc-vita/model-conversion/changedextension.png)
 
 Now, save the file. Next, we'll need to reconvert the GMS data back into a model. Open up a command prompt next to Sadoaiya and pass a command like this
 ```
@@ -133,7 +133,7 @@ sadoaiya (path to gms)
 ```
 This will turn your GMS into a GMO, let's take the time to preview our model in GMOView to ensure the textures were applied properly.
 
-![](/assets/images/porting/p4gpc-vita/model-conversion/fixed%20textures.png)
+ ![](/assets/images/porting/p4gpc-vita/model-conversion/fixedtextures.png)
 
 Perfect, the colors are now proper. After this, we'll need to fix a few things about the GMO.
 
@@ -145,7 +145,7 @@ First, we need to remove vertex colors or else our model will crash upon loading
 
 You'll know if your model has vertex colors if you see a C32 / C16 value in the format section in the top left of GMOView.
 
-![](/assets/images/porting/p4gpc-vita/model-conversion/vertex%20color%20mention.png)
+  ![](/assets/images/porting/p4gpc-vita/model-conversion/vertexcolormention.png)
 
 In Sadoaiya's command prompt, pass a command like this:
 ```
@@ -153,7 +153,7 @@ sadoaiya -C (path to gmo)
 ```
 This will remove vertex colors at the sacrifice of a slight loss in brightness. As shown here.
 
-![](/assets/images/porting/p4gpc-vita/model-conversion/fixed%20vertex%20colors.png)
+  ![](/assets/images/porting/p4gpc-vita/model-conversion/fixedvertexcolors.png)
 
 Next, we need to optimize for Vita to prevent more crashes. Again, in Sadoaiya's command prompt, pass a command like this:
 ```

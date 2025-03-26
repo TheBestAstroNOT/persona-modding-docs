@@ -1,8 +1,8 @@
 ---
 title: DX2 Models
 ---
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+
+
 
 This guide was written by [Dexxtrip](https://gamebanana.com/members/2225195) on Gamebanana / @bonq.com on Discord.
 
@@ -26,7 +26,7 @@ These are the tools needed for porting DX2 models.
 
 First, let's open up our model in Noesis to check if we have the right one. For the rest of this tutorial, I'll be working with the Sonic model, but this information will apply to every single other design.
 
-![](/assets/images/models/dx2-models/noesis%20view.png)
+ ![](/assets/images/models/dx2-models/noesisview.png)
 
 Once opened, right click the model labeled "scale.fbx" and click Export.
 
@@ -38,7 +38,7 @@ First, set the Additional Animation Output value to "Multi-FBX Anim Sequence" th
 -fbxoldexport -rotate 0 0 180 -bakeanimscale -bmoda -scale 140
 ```
 
-![](/assets/images/models/dx2-models/noesis%20export%20options.png)
+  ![](/assets/images/models/dx2-models/noesisexportoptions.png)
 
 This does several things, so let's break it down.
 
@@ -50,13 +50,13 @@ This does several things, so let's break it down.
 
 Once exported, you should see a list of models like this:
 
-![](/assets/images/models/dx2-models/noesis%20after%20exporting.png)
+  ![](/assets/images/models/dx2-models/noesisafterexporting.png)
 
 Now that we have our animations exported as FBX, let's check them before we get started on making the model itself.
 
 Open up each animation one by one in Noesis and confirm that it's working as intended. You mainly want to check Idle, Attack, and Skill, as well as any other versions of those including numbers.
 
-![](/assets/images/models/dx2-models/noesis%20bone%20anim%20view.png)
+   ![](/assets/images/models/dx2-models/noesisboneanimview.png)
 
 The model will not contain any mesh data, just the animation of the bones. The model will also not be facing the screen, this is intentional as it will be facing the correct direction as a GMO.
 
@@ -71,7 +71,7 @@ Importing Animations is relatively simple. Open up a command prompt next to GMOC
 gmoconv scaleout.fbx -S -motions scaleout-skill.fbx scaleout-attack.fbx scaleout-skill.fbx scaleout-attack.fbx scaleout-idle.fbx
 ```
 
-![](/assets/images/models/dx2-models/gmoconv%20command.png)
+ ![](/assets/images/models/dx2-models/gmoconvcommand.png)
 
 This command does a lot of things, so let's break it down.
 
@@ -83,19 +83,19 @@ This process can take between a few minutes and a few seconds depending on the s
 
 Once finished, open up GMOView and check your model.
 
-![](/assets/images/models/dx2-models/untextured%20andy.png)
+ ![](/assets/images/models/dx2-models/untexturedandy.png)
 
 Your model won't have textures, this is normal and we'll fix it in a second. Press 2 on your keyboard and flip through the animations to check that the process went over smoothly. You want to make sure you have a total of 5 animations as shown here.
 
-![](/assets/images/models/smt-v-models/correct%20animation%20view.png)
+  ![](/assets/images/models/smt-v-models/correctanimationview.png)
 
 Before closing, let's check one more thing. Press 4 on your keyboard and scroll down to BONE, turn it on.
 
-![](/assets/images/models/dx2-models/gmoview%20options%20screen.png)
+  ![](/assets/images/models/dx2-models/gmoviewoptionsscreen.png)
 
 Your model will have it's bones highlighted in red, as shown here:
 
-![](/assets/images/models/dx2-models/gmoview%20visible%20bones.png)
+  ![](/assets/images/models/dx2-models/gmoviewvisiblebones.png)
 
 If you don't see bones around your character, press the middle mouse button and drag your mouse upwards. 
 
@@ -115,11 +115,11 @@ Texture "
 
 You should find your texture mentions like this:
 
-![](/assets/images/models/dx2-models/texture%20mentions.png)
+ ![](/assets/images/models/dx2-models/texturementions.png)
 
 Change the extensions to .TM2 like this:
 
-![](/assets/images/models/dx2-models/changed%20texture%20mentions.png)
+  ![](/assets/images/models/dx2-models/changedtexturementions.png)
 
 Now, you'll need to convert those PNG files to TM2.
 
@@ -153,7 +153,7 @@ Once you're done, let's reopen our freshly made GMO in GMOView and check our tex
 
 Your model should be fully textured now.
 
-![](/assets/images/models/dx2-models/unlit%20andy.png)
+ ![](/assets/images/models/dx2-models/unlitandy.png)
 
 You may notice a brightness issue with your model, let's address that.
 
@@ -169,21 +169,21 @@ GMOConv -S (path to gmo)
 I'll be using Surt as an example here.
 
 Open up the new GMS file and move to the material section like this:
-![](/assets/images/models/dx2-models/surt%20material%20data.png)
+  ![](/assets/images/models/dx2-models/surtmaterialdata.png)
 
 Copy and paste everything above `Layer` onto your GMS file like this:
 
-![](/assets/images/models/dx2-models/old%20material%20data.png)
+  ![](/assets/images/models/dx2-models/oldmaterialdata.png)
 
-![](/assets/images/models/dx2-models/new%20material%20data.png)
+  ![](/assets/images/models/dx2-models/newmaterialdata.png)
 
 Once your model is adjusted, reconvert the GMS back to a GMO like before. 
 
 Here's a before and after showing the adjusted materials.
 
-![](/assets/images/models/dx2-models/old%20unlit%20andy.png)
+  ![](/assets/images/models/dx2-models/oldunlitandy.png)
 
-![](/assets/images/models/dx2-models/lit%20andy.png)
+ ![](/assets/images/models/dx2-models/litandy.png)
 
 You'll definitely notice a brightness increase, this step is very important for ensuring the model works in Persona 4 Golden.
 
@@ -217,12 +217,12 @@ Testing in game is the final part of getting models to work properly. You're goi
 
 Here are a few visual examples of what I mean:
 
-![](/assets/images/models/smt-v-models/scaling%20comp%20example.png)*Example of good and bad compendium scaling and positioning. You want to aim for the image on the right where the Persona takes up as much of the empty space.*
+  ![](/assets/images/models/smt-v-models/scalingcompexample.png)*Example of good and bad compendium scaling and positioning. You want to aim for the image on the right where the Persona takes up as much of the empty space.*
 
-![](/assets/images/models/smt-v-models/pos%20battle%20example.jpg)
+  ![](/assets/images/models/smt-v-models/posbattleexample.jpg)
 *Example of bad battle positioning, take note of the model clipping into the floor, you don't want that.*
 
-![](/assets/images/models/smt-v-models/model%20errors%20example.gif)                                                                       
+  ![](/assets/images/models/smt-v-models/modelerrorsexample.gif)                                                                       
 *Example of irregular model performance. This is typically caused by missing blend subsets.*
 
 Before we wrap up, you may have noticed that the model size isn't the best. You have a pretty easy way of fixing this.

@@ -1,70 +1,121 @@
-// @ts-check
-// `@type` JSDoc annotations allow editor autocompletion and type checking
-// (when paired with `@ts-check`).
-// There are various equivalent ways to declare your Docusaurus config.
-// See: https://docusaurus.io/docs/api/docusaurus-config
+const docusaurusData = require("./config/docusaurus/index.json");
 
-import {themes as prismThemes} from 'prism-react-renderer';
+const lightCodeTheme = require("prism-react-renderer").themes.github;
+const darkCodeTheme = require("prism-react-renderer").themes.dracula;
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+const getDocId = (doc) => {
+  return doc
+    .replace(/\.mdx?$/, "")
+    .split("/")
+    .slice(1)
+    .join("/");
+};
+
+const getPageRoute = (page) => {
+  return page
+    .replace(/\.mdx?$/, "")
+    .split("/")
+    .slice(2)
+    .join("/");
+};
+
+const getPath = (page) => {
+  return page.replace(/\.mdx?$/, "");
+};
+
+const formatFooterItem = (item) => {
+  if (item.title) {
+    return {
+      title: item.title,
+      items: item.items.map((subItem) => {
+        return formatFooterItem(subItem);
+      }),
+    };
+  } else {
+    let linkObject = {
+      label: item.label,
+    };
+
+    if (item.to) {
+      linkObject.to = getPath(item.to);
+    } else if (item.href) {
+      linkObject.href = item.href;
+    } else {
+      linkObject.to = "/blog";
+    }
+
+    return linkObject;
+  }
+};
+
+const formatNavbarItem = (item, subnav = false) => {
+  let navItem = {
+    label: item.label,
+  };
+
+  if (!subnav) {
+    navItem.position = item.position;
+  }
+
+  if (item.link === "external" && item.externalLink) {
+    navItem.href = item.externalLink;
+  }
+
+  if (item.link === "blog") {
+    navItem.to = "/blog";
+  }
+
+  if (item.link === "page" && item.pageLink) {
+    navItem.to = getPageRoute(item.pageLink);
+  }
+
+  if (item.link === "doc" && item.docLink) {
+    navItem.type = "doc";
+    navItem.docId = getDocId(item.docLink);
+  }
+
+  if (item.items) {
+    navItem.type = "dropdown";
+    navItem.items = item.items.map((subItem) => {
+      return formatNavbarItem(subItem, true);
+    });
+  }
+
+  return navItem;
+};
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Persona Modding Docs',
-  tagline: 'Welcome to the world of Persona Modding!',
-  favicon: 'img/favicon.ico',
-
-  // Set the production url of your site here
-  url: 'https://animatedswine37.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/persona-modding-docs/',
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'AnimatedSwine37', // Usually your GitHub org/user name.
-  projectName: 'persona-modding-docs', // Usually your repo name.
-
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
+  title: docusaurusData.title || "Persona Modding Docs",
+  tagline: docusaurusData.tagline || "Welcome to the home of Persona Modding",
+  url: docusaurusData.url || "https://thebestastronot.github.io",
+  baseUrl: "/persona-modding-docs/",
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
+  favicon: "img/favicon.ico",
+  // Even if you don't use internalization, you can use this field to set useful
+  // metadata like html lang. For example, if your site is Chinese, you may want
+  // to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: "en",
+    locales: ["en"],
   },
 
   presets: [
     [
-      'classic',
+      "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: './sidebars.js',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/AnimatedSwine37/persona-modding-docs/edit/main/',
+          sidebarPath: require.resolve("./sidebars.js"),
+          editUrl: docusaurusData.url + "/admin/#/collections/doc",
         },
         blog: {
           showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/AnimatedSwine37/persona-modding-docs/edit/main/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
+          editUrl: docusaurusData.url + "/admin/#/collections/post",
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: require.resolve("./src/css/custom.css"),
         },
       }),
     ],
@@ -73,34 +124,25 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'Persona Modding Docs',
+        title: docusaurusData.title || "",
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: docusaurusData?.logo?.alt
+            ? docusaurusData?.logo?.alt
+            : "My Logo",
+          src: docusaurusData?.logo?.src
+            ? docusaurusData?.logo?.src
+            : "img/logo.svg",
         },
-        items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'Sidebar',
-            position: 'left',
-            label: 'Docs',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/AnimatedSwine37/persona-modding-docs',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
+        items: docusaurusData.navbar.map((item) => {
+          return formatNavbarItem(item);
+        }),
       },
       prism: {
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
       },
     }),
 };
 
-export default config;
+module.exports = config;

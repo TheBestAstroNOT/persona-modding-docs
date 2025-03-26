@@ -1,0 +1,32 @@
+{
+  "label": "Settings",
+  "logo": {
+    "alt": "Tina",
+    "src": "/img/tina-icon.svg"
+  },
+  "title": "Persona Modding Docs",
+  "url": "https://thebestastronot.github.io",
+  "navbar": [
+    {
+      "label": "Docs",
+      "link": "doc",
+      "docLink": "docs/intro.mdx",
+      "position": "left"
+    },
+    {
+      "label": "Blog",
+      "link": "blog",
+      "position": "left"
+    },
+    {
+      "label": "Docusaurus GitHub",
+      "link": "external",
+      "externalLink": "https://github.com/facebook/docusaurus",
+      "position": "right"
+    }
+  ],
+  "footer": {
+    "style": "dark",
+    "copyright": ""
+  }
+}

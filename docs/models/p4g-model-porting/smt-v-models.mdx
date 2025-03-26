@@ -1,8 +1,8 @@
 ---
 title: SMT V Models
 ---
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+
+
 
 This guide was written by [Dexxtrip](https://gamebanana.com/members/2225195) on Gamebanana / @bonq.com on Discord.
 
@@ -56,26 +56,26 @@ For the purpose of this guide, I'll be demonstrating the Angel model, but this i
 
 Make sure “Load Skeleton Only” isn’t checked and press “Import PSK.” Navigate to where your models are located and open the topmost PSK, so not the ones with LOD in the name.
 
-![](/assets/images/models/smt-v-models/actor%20x.png)
+ ![](/assets/images/models/smt-v-models/actorx.png)
 
-![](/assets/images/models/smt-v-models/lod%20info.png)                    
+ ![](/assets/images/models/smt-v-models/lodinfo.png)                    
 *LOD stands for Level of Detail. Basically the less detailed version of the model used for far away demons, you don't want to work with those.*
 
 Once loaded in, you’ll need to rotate the model 180 degrees on the Z axis so that it faces the right direction when ported to P4G.
 
 Move over to the left side and select the bone with "root" in the name.&#x20;
 
-![](/assets/images/models/smt-v-models/root%20bone.png)
+ ![](/assets/images/models/smt-v-models/rootbone.png)
 
 Next, move up to the top and right-click the rotate option.
 
-![](/assets/images/models/smt-v-models/rotate%20option.png)
+ ![](/assets/images/models/smt-v-models/rotateoption.png)
 
 In the new window, change the Z rotation to 180, so that the model is facing towards the back of the scene.
 
 Your viewport should look something like this:
 
-![](/assets/images/models/smt-v-models/viewport%20view.png)
+ ![](/assets/images/models/smt-v-models/viewportview.png)
 
 Once you're done, move on to the next step.
 
@@ -85,13 +85,13 @@ Now, we’ll need to split the meshes to prevent errors in P4G, this is a very i
 
 Select the mesh data on the left then move over to the right side. It should say “Skin” and “Editable Mesh” on the right side, right-click "Skin" and select Cut.
 
-![](/assets/images/models/smt-v-models/skin%20option.png)
+ ![](/assets/images/models/smt-v-models/skinoption.png)
 
-![](/assets/images/models/smt-v-models/skin%20option%202.png)
+  ![](/assets/images/models/smt-v-models/skinoption2.png)
 
 Next, open up the drop-down of the Editable Mesh and select the term “Element.”
 
-![](/assets/images/models/smt-v-models/element%20selected.png)
+ ![](/assets/images/models/smt-v-models/elementselected.png)
 
 Now, you’ll need to split the mesh in a way that makes sense to you. To make your work easier, press 7 on your keyboard to show the vertex count, then right-click the + and click "Configure Viewports", then click statistics, then change it to “Total + Selection.” You should end up with a viewport like this:
 
@@ -103,11 +103,11 @@ In our case with working on the Angel model, we’ll split the wings, weapon, ar
 
 Your viewport should have the selected parts in red like this:
 
-![](/assets/images/models/smt-v-models/mesh%20split%20wings.png)
+  ![](/assets/images/models/smt-v-models/meshsplitwings.png)
 
 Once you’re satisfied with what is selected, press right-click and click detach, and give it an identifiable name, this will split it into its own mesh.&#x20;
 
-![](/assets/images/models/smt-v-models/detach%20split%20mesh.png)
+  ![](/assets/images/models/smt-v-models/detachsplitmesh.png)
 
 To keep your workspace clear, move over to the left side and click the eyeball to hide what you just separated.
 
@@ -115,7 +115,7 @@ Repeat these steps until the mesh is completely invisible.&#x20;
 
 To ensure that all parts are detached at the end, drag and click over the entire size of the window to select any possible leftover meshes, and detach those too.&#x20;
 
-![](/assets/images/models/smt-v-models/leftover%20bit.png)*Leftover bits will be highlighted in red, as shown here.*
+ ![](/assets/images/models/smt-v-models/leftoverbit.png)*Leftover bits will be highlighted in red, as shown here.*
 
 Once done, unhide everything so that the entire model is visible.&#x20;
 
@@ -125,7 +125,7 @@ Repeat this until every mesh has a skin modifier. You need to make sure every pa
 
 Your model should have returned to the correct rotation. If any parts are facing the opposite direction, click on them and paste the skin modifier back onto them. Your viewport should look something like this:
 
-![](/assets/images/models/smt-v-models/viewport%20view%20again.png)                                                                 
+  ![](/assets/images/models/smt-v-models/viewportviewagain.png)                                                                 
 *Take note of the lack of polygons or vertexes left over in the original mesh, you want to ensure that yours is the same.*
 
 Done? Next, we need to apply the textures to the model with the material editor.
@@ -134,35 +134,35 @@ Done? Next, we need to apply the textures to the model with the material editor.
 
 Move over to the top of the viewer and select this object, it’s the material editor.
 
-![](/assets/images/models/smt-v-models/material%20editor.png)
+ ![](/assets/images/models/smt-v-models/materialeditor.png)
 
 A new window will pop up, move to the top left and select the “Picker” option shown here:
 
-![](/assets/images/models/smt-v-models/picker%20option.png)
+ ![](/assets/images/models/smt-v-models/pickeroption.png)
 
 Once selected, click anywhere on the model itself and a material tree will pop up.
 
 Zoom out and move to the far left, these boxes on the left in green are what represent your textures.
 
-![](/assets/images/models/smt-v-models/material%20trees.png)
+ ![](/assets/images/models/smt-v-models/materialtrees.png)
 
 Double-click on each texture option, and select the option labeled bitmap.
 
-![](/assets/images/models/smt-v-models/select%20bitmap%20texture.png)
+  ![](/assets/images/models/smt-v-models/selectbitmaptexture.png)
 
 Navigate to your texture folder and select the texture to import it.  In most cases, you'll only need to apply the "Main" texture several times, but in our case, Angel has two textures to apply.
 
 After adding one of the textures, it should show up on the model itself, like this:&#x20;
 
-![](/assets/images/models/smt-v-models/applied%20textures.png)
+ ![](/assets/images/models/smt-v-models/appliedtextures.png)
 
 You should be able to tell which texture goes with what just by the name or by looking at the contents of the image. For example, this isn't correct:
 
-![](/assets/images/models/smt-v-models/incorrect%20material.png)
+ ![](/assets/images/models/smt-v-models/incorrectmaterial.png)
 
 This is:
 
-![](/assets/images/models/smt-v-models/correct%20material.png)
+ ![](/assets/images/models/smt-v-models/correctmaterial.png)
 
 Once you're done applying the textures, you can move on to exporting the model.
 
@@ -172,17 +172,17 @@ Once satisfied with how the model looks, you’ll need to export with a few spec
 
 ![](/assets/images/models/smt-v-models/export.png)
 
-![](/assets/images/models/smt-v-models/export%20options.png)
+ ![](/assets/images/models/smt-v-models/exportoptions.png)
 
 Next, go back to the ActorX Importer Script, select “Import PSA” and import one of the three animations you’ll need, those being “Idle,” “Attack,” and “Skill.” Once it's loaded, double-click on it to apply the animation to the model.
 
-![](/assets/images/models/smt-v-models/import%20psa.png)
+ ![](/assets/images/models/smt-v-models/importpsa.png)
 
 Once imported, you’ll notice the model went back to their original rotation, select the root bone and rotate everything 180 degrees again and export the same way as last time.
 
-![](/assets/images/models/smt-v-models/model%20viewport%20psa.png)
+  ![](/assets/images/models/smt-v-models/modelviewportpsa.png)
 
-![](/assets/images/models/smt-v-models/correct%20viewport%20psa.png)
+  ![](/assets/images/models/smt-v-models/correctviewportpsa.png)
 
 Repeat these steps for the next two animations until all three are exported.
 
@@ -193,13 +193,13 @@ Once finished, launch a command prompt next to where your GMOConv exe is located
 Gmoconv.exe model.fbx -S -motions attack.fbx skill.fbx attack.fbx skill.fbx idle.fbx
 ```
 
-![](/assets/images/models/smt-v-models/shown%20command.png)
+ ![](/assets/images/models/smt-v-models/showncommand.png)
 
 This will automatically convert each model into a GMO and merge it into one model file with little to no effort. Depending on the complexity of the model and the speed of your computer, this could take between a few seconds and a few minutes.
 
 Once finished, open up your model in GMOView to check for any issues. It won't have textures, which is normal, continue on. Press 2 on your keyboard to open up the animation viewer and flip through each animation. You should have a total of 5 animations, going in the order you applied them.
 
-![](/assets/images/models/smt-v-models/correct%20animation%20view.png)
+  ![](/assets/images/models/smt-v-models/correctanimationview.png)
 
 If all looks good, continue with importing textures.
 
@@ -227,13 +227,13 @@ If you're using Notepad++ as I recommended, change the language to just C, then 
 Once it's open you’ll need to do two things here:
 
 * **First**, change the extension of your textures to .tm2 in the texture location at the bottom.
-    ![](/assets/images/models/smt-v-models/changed%20texture%20extension.png)
+      ![](/assets/images/models/smt-v-models/changedtextureextension.png)
 * **Second**, fix the materials by copying the material data from a working P4G model. If you don’t do this, your model won’t be visible in-game. Make sure you pick the right materials too, as it may cause the model to be too dark or too bright.
 
-    ![](/assets/images/models/smt-v-models/old%20incorrect%20materials.png)                                                                           
+      ![](/assets/images/models/smt-v-models/oldincorrectmaterials.png)                                                                           
     *Incorrect base materials.*
 
-    ![](/assets/images/models/smt-v-models/new%20correct%20materials.png)                                                                               
+      ![](/assets/images/models/smt-v-models/newcorrectmaterials.png)                                                                               
     *Correct adjusted materials.*
 
 
@@ -289,12 +289,12 @@ Testing in game is the final part of getting models to work properly. You're goi
 
 Here are a few visual examples of what I mean:
 
-![](/assets/images/models/smt-v-models/scaling%20comp%20example.png)*Example of good and bad compendium scaling and positioning. You want to aim for the image on the right where the Persona takes up as much of the empty space.*
+  ![](/assets/images/models/smt-v-models/scalingcompexample.png)*Example of good and bad compendium scaling and positioning. You want to aim for the image on the right where the Persona takes up as much of the empty space.*
 
-![](/assets/images/models/smt-v-models/pos%20battle%20example.jpg)
+  ![](/assets/images/models/smt-v-models/posbattleexample.jpg)
 *Example of bad battle positioning, take note of the model clipping into the floor, you don't want that.*
 
-![](/assets/images/models/smt-v-models/model%20errors%20example.gif)                                                                       
+  ![](/assets/images/models/smt-v-models/modelerrorsexample.gif)                                                                       
 *Example of irregular model performance. This is typically caused by missing blend subsets.*
 
 Once you've checked all of these, and can verify that they are working perfectly, **congrats!** You've successfully ported a model from SMT V.
