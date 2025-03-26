@@ -5,10 +5,11 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 ## Tools You'll Need
-- [Phos Music Manager](https://github.com/T-PoseRatkechi/phos-music-manager/releases)
-- [AtomEncd](https://drive.google.com/file/d/1Jx9NBu40XUcJb0U4MdsVjPV84UTzWcpy/view)
-- (For P5R) [This script for encrypting ADX files](https://drive.google.com/file/d/1zHiVWwpjYipK-vrvUOAtCa9zplpel8km/view)
-- (If unpacking/repacking AWB) [Sonic Audio Tools](https://github.com/blueskythlikesclouds/SonicAudioTools)
+
+* [Phos Music Manager](https://github.com/T-PoseRatkechi/phos-music-manager/releases)
+* [AtomEncd](https://drive.google.com/file/d/1Jx9NBu40XUcJb0U4MdsVjPV84UTzWcpy/view)
+* (For P5R) [This script for encrypting ADX files](https://drive.google.com/file/d/1zHiVWwpjYipK-vrvUOAtCa9zplpel8km/view)
+* (If unpacking/repacking AWB) [Sonic Audio Tools](https://github.com/blueskythlikesclouds/SonicAudioTools)
 
 :::note
 Add information for new voice lines and sound effects
@@ -28,11 +29,11 @@ Additional documentation on BGME can be found [here](https://t-poseratkechi.gith
 
 There are two main ways to add new music in Persona games.
 
-- [Phos Music Manager](https://github.com/T-PoseRatkechi/phos-music-manager/releases) is a music manager designed to simplify music replacement or addition in Persona 3 Portable (PC), Persona 4 Golden (PC x64), and Persona 5 Royal (PC). It automatically handles all steps needed to encode and export music.
-- If you would rather manually add new music files, [AtomEncd](https://drive.google.com/file/d/1Jx9NBu40XUcJb0U4MdsVjPV84UTzWcpy/view) should be used instead.
+* [Phos Music Manager](https://github.com/T-PoseRatkechi/phos-music-manager/releases) is a music manager designed to simplify music replacement or addition in Persona 3 Portable (PC), Persona 4 Golden (PC x64), and Persona 5 Royal (PC). It automatically handles all steps needed to encode and export music.
+* If you would rather manually add new music files, [AtomEncd](https://drive.google.com/file/d/1Jx9NBu40XUcJb0U4MdsVjPV84UTzWcpy/view) should be used instead.
 
 <Tabs>
-  <TabItem value="phos" label="Phos Music Manager">
+  <TabItem value="phos" label="Phos Musi Manager">
 
 ## Adding New Music Files
 
@@ -45,11 +46,12 @@ To add new music files to your project, click on the + icon next to the Build bu
 ![](/assets/images/audio/phosnewtrack.png)
 
 A popup will open where you can enter details about the new song you are adding.
-- Name: the name of the track
-- Category (optional): the category shown in caps (ex: Regular Battles, Events, etc.). This is purely for organizational purposes.
-- Tags (optional): any tags to more clearly detail what the track is for (ex: Normal, Results Screen, etc.). This is purely for organizational purposes.
-- Output Path: the file path of the exported file.
-- Encoder: the encoder that should be used for the exported file.
+
+* Name: the name of the track
+* Category (optional): the category shown in caps (ex: Regular Battles, Events, etc.). This is purely for organizational purposes.
+* Tags (optional): any tags to more clearly detail what the track is for (ex: Normal, Results Screen, etc.). This is purely for organizational purposes.
+* Output Path: the file path of the exported file.
+* Encoder: the encoder that should be used for the exported file.
 
 ![](/assets/images/audio/phosaddtrack.png)
 
@@ -59,6 +61,7 @@ The output path and encoder depend on the game being modded.
   <TabItem value="p4g" label="P4G">
 
 ### Output Path
+
 The output path should be set to `FEmulator/AWB/snd00_bgm.awb/songID.hca`, where `songID.hca` is the ID of the new track you are adding. Use IDs ranging from 678 up to 835 for new music.
 
 :::info
@@ -66,6 +69,7 @@ If you want your mod to be compatible with existing BGME music mods, make sure t
 :::
 
 ### Encoder
+
 The encoder should be set to HCA.
 
   </TabItem>
@@ -73,9 +77,11 @@ The encoder should be set to HCA.
   <TabItem value="p5r" label="P5R">
 
 ### Output Path
+
 The output path should be set to `FEmulator/AWB/BGM_42.AWB/songID.ADX`, where `songID.ADX` is the ID of the new track you are adding. Use IDs ranging from 0 up to 9999 for new music.
 
 ### Encoder
+
 The encoder should be set to ADX (Persona 5 Royal PC). If you do not have this option, follow [this](./audio-replacement#p5r-adx-encryption) to install it.
 
   </TabItem>
@@ -83,6 +89,7 @@ The encoder should be set to ADX (Persona 5 Royal PC). If you do not have this o
   <TabItem value="p3p" label="P3P">
 
 ### Output Path
+
 The output path should be set to `P5REssentials\CPK\Phos Music Manager\data\sound\bgm\songID.ADX`, where `songID.ADX` is the ID of the new track you are adding. Any new ID up to 99999999999 is supported.
 
 :::info
@@ -90,6 +97,7 @@ Using IDs larger than 1000 is recommended to avoid crashes.
 :::
 
 ### Encoder
+
 The encoder should be set to ADX.
 
   </TabItem>
@@ -100,9 +108,11 @@ The encoder should be set to ADX.
   <TabItem value="manual" label="Manual (AtomEncd)">
 
 ## Encoding Music
+
 Follow the process to [replace audio using AtomEncd](./audio-replacement#encoding-audio-with-atomencd).
 
 ## Adding Music to your Mod
+
 Audio files should be placed in the proper directory depending on what game you are modding.
 
 <Tabs>
