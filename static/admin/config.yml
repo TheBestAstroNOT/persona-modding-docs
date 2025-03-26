@@ -29,27 +29,60 @@ collections:
           - { name: url, label: URL, widget: string }
           - { name: imageUrl, label: Image URL, widget: string }
 
-  - name: docs
+  - name: documentation
     label: "Documentation"
-    folder: docs
-    identifier_field: title
-    extension: mdx
+    editor:
+      preview: false
     format: frontmatter
     create: true
     nested:
-      depth: 5 # Adjust based on how deep your subfolders go
-    slug: "{{slug}}" # Ensures readable URLs
-    fields:
-      - { name: title, label: Title, widget: string }
-      - { name: slug, label: Slug, widget: string }
-      - { name: body, label: Body, widget: markdown }
-      - { label: Category, name: category, widget: string }
-      - { label: Tags, name: tags, widget: list }
-      - label: Authors
-        name: authors
-        widget: list
+      depth: 5  # Allows subfolders up to 5 levels deep
+    files:
+      - name: audio
+        label: "Audio"
+        file: docs/audio
         fields:
-          - { name: name, label: Name, widget: string }
           - { name: title, label: Title, widget: string }
-          - { name: url, label: URL, widget: string }
-          - { name: imageUrl, label: Image URL, widget: string }
+          - { name: body, label: Body, widget: markdown }
+
+      - name: events
+        label: "Events"
+        file: docs/events
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: body, label: Body, widget: markdown }
+
+      - name: flowscript
+        label: "FlowScript"
+        file: docs/flowscript
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: body, label: Body, widget: markdown }
+
+      - name: getting-started
+        label: "Getting Started"
+        file: docs/getting-started
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: body, label: Body, widget: markdown }
+
+      - name: models
+        label: "Models"
+        file: docs/models
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: body, label: Body, widget: markdown }
+
+      - name: porting
+        label: "Porting"
+        file: docs/porting
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: body, label: Body, widget: markdown }
+
+      - name: using-mods
+        label: "Using Mods"
+        file: docs/using-mods
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: body, label: Body, widget: markdown }
