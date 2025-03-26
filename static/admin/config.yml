@@ -1,0 +1,55 @@
+backend:
+  name: github
+  branch: main
+  repo: TheBestAstroNOT/persona-modding-docs
+
+media_folder: "static/assets/images" # Media files will be stored here
+public_folder: "/assets/images" # Public URL for the media files
+
+collections:
+  - name: blog
+    label: "Blog"
+    folder: blog
+    identifier_field: title
+    extension: md
+    format: frontmatter
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: slug, label: Slug, widget: string }
+      - { name: body, label: Body, widget: markdown }
+      - { label: Tags, name: tags, widget: list }
+      - label: Authors
+        name: authors
+        widget: list
+        fields:
+          - { name: name, label: Name, widget: string }
+          - { name: title, label: Title, widget: string }
+          - { name: url, label: URL, widget: string }
+          - { name: imageUrl, label: Image URL, widget: string }
+
+  - name: docs
+    label: "Documentation"
+    folder: docs
+    identifier_field: title
+    extension: mdx
+    format: frontmatter
+    create: true
+    nested:
+      depth: 5 # Adjust based on how deep your subfolders go
+    slug: "{{slug}}" # Ensures readable URLs
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: slug, label: Slug, widget: string }
+      - { name: body, label: Body, widget: markdown }
+      - { label: Category, name: category, widget: string }
+      - { label: Tags, name: tags, widget: list }
+      - label: Authors
+        name: authors
+        widget: list
+        fields:
+          - { name: name, label: Name, widget: string }
+          - { name: title, label: Title, widget: string }
+          - { name: url, label: URL, widget: string }
+          - { name: imageUrl, label: Image URL, widget: string }
