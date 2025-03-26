@@ -29,27 +29,79 @@ collections:
           - { name: url, label: URL, widget: string }
           - { name: imageUrl, label: Image URL, widget: string }
 
-  - name: docs
-    label: "Documentation"
-    folder: docs
-    identifier_field: title
+  - name: audio
+    label: "Audio"
+    folder: docs/audio
+    create: true
     extension: mdx
     format: frontmatter
-    create: true
-    nested:
-      depth: 5
     slug: "{{slug}}"
     fields:
       - { name: title, label: Title, widget: string }
-      - { name: slug, label: Slug, widget: string }
       - { name: body, label: Body, widget: markdown }
-      - { label: Category, name: category, widget: string }
-      - { label: Tags, name: tags, widget: list }
-      - label: Authors
-        name: authors
-        widget: list
-        fields:
-          - { name: name, label: Name, widget: string }
-          - { name: title, label: Title, widget: string }
-          - { name: url, label: URL, widget: string }
-          - { name: imageUrl, label: Image URL, widget: string }
+
+  - name: events
+    label: "Events"
+    folder: docs/events
+    create: true
+    extension: mdx
+    format: frontmatter
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: flowscript
+    label: "FlowScript"
+    folder: docs/flowscript
+    create: true
+    extension: mdx
+    format: frontmatter
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: getting-started
+    label: "Getting Started"
+    folder: docs/getting-started
+    create: true
+    extension: mdx
+    format: frontmatter
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: models
+    label: "Models"
+    folder: docs/models
+    create: true
+    extension: mdx
+    format: frontmatter
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: porting
+    label: "Porting"
+    folder: docs/porting
+    create: true
+    extension: mdx
+    format: frontmatter
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: using-mods
+    label: "Using Mods"
+    folder: docs/using-mods
+    create: true
+    extension: mdx
+    format: frontmatter
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: body, label: Body, widget: markdown }
