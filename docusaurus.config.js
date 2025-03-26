@@ -66,8 +66,18 @@ const config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://persona-modding-docs.netlify.app/admin/#/collections/blog/entries/',
+          editUrl: ({ blogPath }) => {
+            if (!blogPath) {
+              return "https://persona-modding-docs.netlify.app/admin"; // Default to admin page
+            }
+        
+            const parts = blogPath.split('/');
+            // @ts-ignore
+            const filename = parts.pop().replace('.mdx', '').replace('.md', ''); // Ensure no file extension
+        
+            return `'https://persona-modding-docs.netlify.app/admin/#/collections/blog/entries/${filename}`;
+          },
+            
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
