@@ -5,9 +5,6 @@ backend:
   auth_scope: repo
   open_authoring: true
 
-editor:
-  preview: true
-
 publish_mode: editorial_workflow
 media_folder: "static/assets/images" # Media files will be stored here
 public_folder: "/assets/images" # Public URL for the media files
