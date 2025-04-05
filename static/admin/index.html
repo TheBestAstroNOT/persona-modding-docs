@@ -9,46 +9,26 @@
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    CMS.registerPreviewStyle("./example.css");
-    const { createElement: h } = React;
-      const ReactMarkdown = window['react-markdown'];
-      const remarkGfm = window.remarkGfm.default;
-      const remarkDirective = window.remarkDirective.default;
-      const remarkAdmonitions = window.remarkAdmonitions;
-
-      const Admonition = ({ className = '', children }) => {
-        const type =
-          className?.split(' ').find(cls => cls.startsWith('admonition-'))?.replace('admonition-', '') || 'note';
-
-        return h(
-          'div',
-          { className: `admonition admonition-${type}` },
-          [
-            h('div', { className: 'admonition-title' }, type.charAt(0).toUpperCase() + type.slice(1)),
-            h('div', { className: 'admonition-content' }, children)
-          ]
-        );
+    const parseAdmonitions = (markdown) => {
+        return markdown
+          .replace(/:::info\s+([\s\S]+?):::/g, '<div class="admonition admonition-info"><div class="admonition-title">Info</div><div class="admonition-content">$1</div></div>')
+          .replace(/:::warning\s+([\s\S]+?):::/g, '<div class="admonition admonition-warning"><div class="admonition-title">Warning</div><div class="admonition-content">$1</div></div>')
+          .replace(/:::danger\s+([\s\S]+?):::/g, '<div class="admonition admonition-danger"><div class="admonition-title">Danger</div><div class="admonition-content">$1</div></div>')
+          .replace(/:::note\s+([\s\S]+?):::/g, '<div class="admonition admonition-note"><div class="admonition-title">Note</div><div class="admonition-content">$1</div></div>');
       };
 
       const Preview = createClass({
         render: function () {
           const entry = this.props.entry;
-          const content = entry.getIn(['data', 'body']) || '';
-          return h(ReactMarkdown, {
-            children: content,
-            remarkPlugins: [remarkGfm, remarkDirective, remarkAdmonitions],
-            components: {
-              div({ node, className, ...props }) {
-                if (className?.includes('admonition')) {
-                  return h(Admonition, { className, ...props });
-                }
-                return h('div', { className, ...props });
-              }
-            }
+          const raw = entry.getIn(['data', 'body']) || '';
+          const parsed = parseAdmonitions(raw);
+          return h('div', {
+            dangerouslySetInnerHTML: { __html: parsed }
           });
         }
       });
 
+      CMS.registerPreviewStyle('./preview.css');
       CMS.registerPreviewTemplate('*', Preview);
   </script>
 </body>
