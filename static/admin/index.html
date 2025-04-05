@@ -9,11 +9,7 @@
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script type="module">
       import Preview from './preview.js';
-
-      [
-        "blog", "audio", "events", "flowscript", "getting-started", "models", "porting", "using-mods"
-      ].forEach(name => CMS.registerPreviewTemplate(name, Preview));
-
+      CMS.registerPreviewTemplate("audio", Preview);
       CMS.registerPreviewStyle("./preview.css");
     </script>
   </body>

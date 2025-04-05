@@ -1,40 +1,56 @@
-import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import remarkDirective from 'remark-directive';
-import rehypeRaw from 'rehype-raw';
+import React from "react";
+import ReactMarkdown from "react-markdown";
+import { WidgetPreviewContainer } from "decap-cms-ui-default";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
+import remarkDirective from "remark-directive";
+import { visit } from "unist-util-visit";
 
-import { WidgetPreviewContainer } from 'decap-cms-ui-default';
+// Our custom plugin
+function remarkAdmonitions() {
+  return (tree) => {
+    visit(tree, (node) => {
+      if (
+        node.type === "containerDirective" &&
+        ["info", "warning", "danger", "note"].includes(node.name)
+      ) {
+        const data = node.data || (node.data = {});
+        const type = node.name;
 
-// Admonition renderer
-const Admonition = ({ className = '', children }) => {
-  const type = className?.split(' ').find(cls => cls.startsWith('admonition-'))?.replace('admonition-', '') || 'note';
+        data.hName = "div";
+        data.hProperties = {
+          className: `admonition admonition-${type}`,
+        };
 
-  return (
-    <div className={`admonition admonition-${type}`}>
-      <div className="admonition-title">{type.charAt(0).toUpperCase() + type.slice(1)}</div>
-      <div className="admonition-content">{children}</div>
-    </div>
-  );
-};
+        if (!node.children[0] || node.children[0].type !== "paragraph") return;
+
+        node.children.unshift({
+          type: "paragraph",
+          data: {
+            hName: "div",
+            hProperties: { className: "admonition-title" },
+          },
+          children: [
+            {
+              type: "text",
+              value: type.charAt(0).toUpperCase() + type.slice(1),
+            },
+          ],
+        });
+      }
+    });
+  };
+}
 
 const Preview = ({ entry }) => {
-  const body = entry.getIn(['data', 'body']) || '';
+  const body = entry.getIn(["data", "body"]) || "";
 
   return (
     <WidgetPreviewContainer>
       <ReactMarkdown
         children={body}
-        remarkPlugins={[remarkGfm, remarkDirective]}
+        remarkPlugins={[remarkGfm, remarkDirective, remarkAdmonitions]}
         rehypePlugins={[rehypeRaw]}
-        components={{
-          div({ node, className, ...props }) {
-            if (className?.includes('admonition')) {
-              return <Admonition className={className} {...props} />;
-            }
-            return <div className={className} {...props} />;
-          }
-        }}
       />
     </WidgetPreviewContainer>
   );
