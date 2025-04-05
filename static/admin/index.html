@@ -8,41 +8,42 @@
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
-      const parseAdmonitions = (markdown) => {
-        const escapeHtml = (str) =>
-          str.replace(/[&<>"']/g, (match) => ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;',
-          }[match]));
-
-        // Replace line breaks with <br> for visibility
-        let html = escapeHtml(markdown).replace(/\n/g, '<br>');
-
-        html = html
-          .replace(/:::info<br>(.*?)<br>:::/gs, '<div class="admonition admonition-info"><div class="admonition-title">Info</div><div class="admonition-content">$1</div></div>')
-          .replace(/:::warning<br>(.*?)<br>:::/gs, '<div class="admonition admonition-warning"><div class="admonition-title">Warning</div><div class="admonition-content">$1</div></div>')
-          .replace(/:::danger<br>(.*?)<br>:::/gs, '<div class="admonition admonition-danger"><div class="admonition-title">Danger</div><div class="admonition-content">$1</div></div>')
-          .replace(/:::note<br>(.*?)<br>:::/gs, '<div class="admonition admonition-note"><div class="admonition-title">Note</div><div class="admonition-content">$1</div></div>');
-
-        return html;
-      };
+      function parseAdmonitions(markdown) {
+        return markdown
+          .replace(/:::info\s([\s\S]+?):::/g, (_, content) =>
+            `<div class="admonition admonition-info">
+              <div class="admonition-title">Info</div>
+              <div class="admonition-content">${content.trim().replace(/\n/g, '<br>')}</div>
+            </div>`
+          )
+          .replace(/:::warning\s([\s\S]+?):::/g, (_, content) =>
+            `<div class="admonition admonition-warning">
+              <div class="admonition-title">Warning</div>
+              <div class="admonition-content">${content.trim().replace(/\n/g, '<br>')}</div>
+            </div>`
+          )
+          .replace(/:::danger\s([\s\S]+?):::/g, (_, content) =>
+            `<div class="admonition admonition-danger">
+              <div class="admonition-title">Danger</div>
+              <div class="admonition-content">${content.trim().replace(/\n/g, '<br>')}</div>
+            </div>`
+          );
+      }
 
       const Preview = createClass({
         render: function () {
-          const entry = this.props.entry;
-          const raw = entry.getIn(['data', 'body']) || '';
-          const parsed = parseAdmonitions(raw);
-          return h('div', {
-            dangerouslySetInnerHTML: { __html: parsed }
-          });
+          const body = this.props.entry.getIn(['data', 'body']) || '';
+          const parsed = parseAdmonitions(body);
+          return h('div', { dangerouslySetInnerHTML: { __html: parsed } });
         }
       });
 
-      CMS.registerPreviewStyle('./preview.css');
-      CMS.registerPreviewTemplate('*', Preview);
+      // Register the preview for all templates
+      [
+        "blog", "audio", "events", "flowscript", "getting-started", "models", "porting", "using-mods"
+      ].forEach(name => CMS.registerPreviewTemplate(name, Preview));
+
+      CMS.registerPreviewStyle("./preview.css");
     </script>
   </body>
 </html>
