@@ -10,15 +10,10 @@ body {
 }
 
 .admonition {
+  border-left: 4px solid;
   padding: 1em;
   margin: 1em 0;
-  border-left: 4px solid;
   border-radius: 4px;
-}
-
-.admonition-title {
-  font-weight: bold;
-  margin-bottom: 0.5em;
 }
 
 .admonition-info {
@@ -29,4 +24,23 @@ body {
 .admonition-warning {
   background: #fff3cd;
   border-color: #ffcc00;
+}
+
+.admonition-danger {
+  background: #ffe6e6;
+  border-color: #d9534f;
+}
+
+.admonition-note {
+  background: #f9f9f9;
+  border-color: #999;
+}
+
+.admonition-title {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.admonition-content {
+  margin-left: 0.5em;
 }
