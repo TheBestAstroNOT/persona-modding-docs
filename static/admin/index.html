@@ -8,9 +8,16 @@
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script type="module">
-      import Preview from './preview.js';
-      CMS.registerPreviewTemplate("audio", Preview);
-      CMS.registerPreviewStyle("./preview.css");
+      import preview from './preview.js';
+      CMS.registerPreviewTemplate('blog', preview);
+      CMS.registerPreviewTemplate('audio', preview);
+      CMS.registerPreviewTemplate('events', preview);
+      CMS.registerPreviewTemplate('flowscript', preview);
+      CMS.registerPreviewTemplate('getting-started', preview);
+      CMS.registerPreviewTemplate('models', preview);
+      CMS.registerPreviewTemplate('porting', preview);
+      CMS.registerPreviewTemplate('using-mods', preview);
     </script>
+    <link rel="stylesheet" href="./preview.css" />
   </body>
 </html>

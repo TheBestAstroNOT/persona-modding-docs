@@ -1,57 +1,41 @@
-import React from "react";
-import ReactMarkdown from "react-markdown";
-import { WidgetPreviewContainer } from "decap-cms-ui-default";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
-import remarkDirective from "remark-directive";
-import { visit } from "unist-util-visit";
+import React from 'react';
+import { WidgetPreviewContainer } from 'decap-cms-ui-default';
+import { compile } from 'xdm';
+import { run } from '@mdx-js/mdx';
+import * as runtime from 'react/jsx-runtime';
+import { createRoot } from 'react-dom/client';
 
-// Our custom plugin
-function remarkAdmonitions() {
-  return (tree) => {
-    visit(tree, (node) => {
-      if (
-        node.type === "containerDirective" &&
-        ["info", "warning", "danger", "note"].includes(node.name)
-      ) {
-        const data = node.data || (node.data = {});
-        const type = node.name;
-
-        data.hName = "div";
-        data.hProperties = {
-          className: `admonition admonition-${type}`,
-        };
-
-        if (!node.children[0] || node.children[0].type !== "paragraph") return;
-
-        node.children.unshift({
-          type: "paragraph",
-          data: {
-            hName: "div",
-            hProperties: { className: "admonition-title" },
-          },
-          children: [
-            {
-              type: "text",
-              value: type.charAt(0).toUpperCase() + type.slice(1),
-            },
-          ],
-        });
-      }
-    });
-  };
-}
+const Admonition = ({ type = 'note', title, children }) => (
+  <div className={`admonition admonition-${type}`}>
+    {title && <div className="admonition-title">{title}</div>}
+    <div className="admonition-content">{children}</div>
+  </div>
+);
 
 const Preview = ({ entry }) => {
-  const body = entry.getIn(["data", "body"]) || "";
+  const raw = entry.getIn(['data', 'body']) || '';
+  const [Component, setComponent] = React.useState(() => () => <p>Loading...</p>);
+
+  React.useEffect(() => {
+    const renderMDX = async () => {
+      try {
+        const compiled = await compile(raw, { outputFormat: 'function-body' });
+        const mod = await run(compiled.value, {
+          ...runtime,
+          baseUrl: import.meta.url,
+          useMDXComponents: () => ({ Admonition }),
+        });
+        setComponent(() => mod.default);
+      } catch (err) {
+        setComponent(() => () => <pre style={{ color: 'red' }}>{err.message}</pre>);
+      }
+    };
+    renderMDX();
+  }, [raw]);
 
   return (
     <WidgetPreviewContainer>
-      <ReactMarkdown
-        children={body}
-        remarkPlugins={[remarkGfm, remarkDirective, remarkAdmonitions]}
-        rehypePlugins={[rehypeRaw]}
-      />
+      <Component />
     </WidgetPreviewContainer>
   );
 };
