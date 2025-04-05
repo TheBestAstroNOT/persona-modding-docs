@@ -1,20 +1,33 @@
 <!doctype html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager</title>
-</head>
-<body>
-  <!-- Include the script that builds the page and powers Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script>
-    const parseAdmonitions = (markdown) => {
-        return markdown
-          .replace(/:::info\s+([\s\S]+?):::/g, '<div class="admonition admonition-info"><div class="admonition-title">Info</div><div class="admonition-content">$1</div></div>')
-          .replace(/:::warning\s+([\s\S]+?):::/g, '<div class="admonition admonition-warning"><div class="admonition-title">Warning</div><div class="admonition-content">$1</div></div>')
-          .replace(/:::danger\s+([\s\S]+?):::/g, '<div class="admonition admonition-danger"><div class="admonition-title">Danger</div><div class="admonition-content">$1</div></div>')
-          .replace(/:::note\s+([\s\S]+?):::/g, '<div class="admonition admonition-note"><div class="admonition-title">Note</div><div class="admonition-content">$1</div></div>');
+  <head>
+    <meta charset="utf-8" />
+    <title>Content Manager</title>
+    <link rel="stylesheet" href="./preview.css" />
+  </head>
+  <body>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      const parseAdmonitions = (markdown) => {
+        const escapeHtml = (str) =>
+          str.replace(/[&<>"']/g, (match) => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;',
+          }[match]));
+
+        // Replace line breaks with <br> for visibility
+        let html = escapeHtml(markdown).replace(/\n/g, '<br>');
+
+        html = html
+          .replace(/:::info<br>(.*?)<br>:::/gs, '<div class="admonition admonition-info"><div class="admonition-title">Info</div><div class="admonition-content">$1</div></div>')
+          .replace(/:::warning<br>(.*?)<br>:::/gs, '<div class="admonition admonition-warning"><div class="admonition-title">Warning</div><div class="admonition-content">$1</div></div>')
+          .replace(/:::danger<br>(.*?)<br>:::/gs, '<div class="admonition admonition-danger"><div class="admonition-title">Danger</div><div class="admonition-content">$1</div></div>')
+          .replace(/:::note<br>(.*?)<br>:::/gs, '<div class="admonition admonition-note"><div class="admonition-title">Note</div><div class="admonition-content">$1</div></div>');
+
+        return html;
       };
 
       const Preview = createClass({
@@ -30,6 +43,6 @@
 
       CMS.registerPreviewStyle('./preview.css');
       CMS.registerPreviewTemplate('*', Preview);
-  </script>
-</body>
+    </script>
+  </body>
 </html>
